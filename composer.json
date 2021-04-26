@@ -1,0 +1,41 @@
+{
+    "name": "tegic/hyperf-jwt",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "hyperf"
+    ],
+    "authors": [
+
+    ],
+    "description": "jwt-auth Component",
+    "autoload": {
+        "psr-4": {
+            "Tegic\\JWTAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {},
+    "require": {
+        "php": ">=7.2",
+        "ext-swoole": ">=4.4",
+        "lcobucci/jwt": "~3.3.0",
+        "nesbot/carbon": "^1.0 || ^2.0"
+    },
+    "require-dev": {},
+    "suggest": {
+        "hyperf/cache": "required hyperf/cache ^2.0.0 OR required hyperf/cache ^1.1.0",
+        "hyperf/command": "required hyperf/command ^2.0.0 OR required hyperf/command ^1.1.0",
+        "hyperf/config": "required hyperf/config ^2.0.0 OR required hyperf/config ^1.1.0",
+        "hyperf/di": "required hyperf/di ^2.0.0 OR required hyperf/di ^1.1.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {},
+    "extra": {
+        "hyperf": {
+            "config": "Tegic\\JWTAuth\\ConfigProvider"
+        }
+    }
+}
