@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace Tegic\JWTAuth;
 
 use Tegic\JWTAuth\Exception\JWTException;
+use Tegic\JWTAuth\Exception\TokenBackException;
 use Tegic\JWTAuth\Exception\TokenValidException;
 use Tegic\JWTAuth\Util\JWTUtil;
 use Hyperf\HttpServer\Contract\RequestInterface;
@@ -102,7 +103,7 @@ class JWT extends AbstractJWT
         $claims = JWTUtil::claimsToArray($token->getClaims());
         // 验证token是否存在黑名单
         if ($config['blacklist_enabled'] && $this->blackList->hasTokenBlack($claims, $config)) {
-            throw new TokenValidException('Token authentication does not pass', 401);
+            throw new TokenBackException('Token Black', 401);
         }
 
         if ($validate && ! $this->validateToken($token)) {
@@ -230,7 +231,11 @@ class JWT extends AbstractJWT
      */
     private function getTokenObj(string $token = null)
     {
-        return JWTUtil::getParser()->parse($token);
+        try {
+            return JWTUtil::getParser()->parse($token);
+        } catch (\Throwable $e) {
+            throw new JWTException('token error',400);
+        }
 //        if (!empty(str_replace(' ', '', $token))) return JWTUtil::getParser()->parse($token);
 //        return JWTUtil::getParser()->parse($this->getHeaderToken());
     }
