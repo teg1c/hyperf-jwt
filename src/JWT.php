@@ -97,8 +97,8 @@ class JWT extends AbstractJWT
             }
             $config = $this->getSceneConfigByToken($token);
             $token = $this->getTokenObj($token);
-        } catch (\RuntimeException $e) {
-            throw new \RuntimeException($e->getMessage(), $e->getCode(), $e->getPrevious());
+        } catch (\Throwable $e) {
+            throw new JWTException($e->getMessage(), 403);
         }
         $claims = JWTUtil::claimsToArray($token->getClaims());
         // 验证token是否存在黑名单
