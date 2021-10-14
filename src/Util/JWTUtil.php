@@ -12,7 +12,7 @@ use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Parsing\Decoder;
 use Lcobucci\JWT\Parsing\Encoder;
 use Lcobucci\JWT\ValidationData;
-
+use Hyperf\Utils\ApplicationContext;
 class JWTUtil
 {
     /**
@@ -77,6 +77,7 @@ class JWTUtil
      */
     public static function getParser(Decoder $decoder = null, ClaimFactory $claimFactory = null)
     {
+        empty($claimFactory) && $claimFactory = ApplicationContext::getContainer()->get(ClaimFactory::class);
         return new Parser($decoder, $claimFactory);
     }
 
