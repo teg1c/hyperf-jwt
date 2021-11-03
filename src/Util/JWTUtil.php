@@ -68,6 +68,7 @@ class JWTUtil
      */
     public static function getBuilder(Encoder $encoder = null, ClaimFactory $claimFactory = null)
     {
+        empty($claimFactory) && $claimFactory = ApplicationContext::getContainer()->get(ClaimFactory::class);
         return new Builder($encoder, $claimFactory);
     }
 
